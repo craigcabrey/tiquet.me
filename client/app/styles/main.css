@@ -23,6 +23,7 @@ body {
 }
 
 .title {
+  cursor: default;
   font-family: 'Bree Serif';
   border-bottom: 1px solid #aaa;
   padding-bottom: 10px;
