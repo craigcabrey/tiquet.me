@@ -8,10 +8,8 @@
  * Controller of the tiquetmeApp
  */
 angular.module('tiquetmeApp')
-  .controller('MainCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('MainCtrl', ['$scope', 'User', function($scope, User) {
+    $scope.isLoggedIn = function() {
+      return User.isAuthenticated();
+    };
+  }]);
