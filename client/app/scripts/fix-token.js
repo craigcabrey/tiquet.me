@@ -1,5 +1,5 @@
 function cookiesToObject() {
-  document.cookie.split(';').map(
+  return document.cookie.split(';').map(
     function(keyValueString) {
       return keyValueString.trim().split('=');
     }
@@ -12,14 +12,16 @@ function cookiesToObject() {
   );
 }
 
-cookieObject = cookiesToObject();
+var cookieObject = cookiesToObject();
 
-if (cookieObject.hasOwnProperty('access_token')) {
-  accessToken = cookieObject['access_token'];
-  localStorage.setItem('$LoopBack$accessTokenId', accessToken);
-}
+if (typeof cookieObject === 'object') {
+  if (cookieObject.hasOwnProperty('access_token')) {
+    var accessToken = cookieObject['access_token'];
+    localStorage.setItem('$LoopBack$accessTokenId', accessToken);
+  }
 
-if (cookieObject.hasOwnProperty('userId')) {
-  userId = cookieObject['userId'];
-  localStorage.setItem('$LoopBack$currentUserId', userId);
+  if (cookieObject.hasOwnProperty('userId')) {
+    var userId = cookieObject['userId'];
+    localStorage.setItem('$LoopBack$currentUserId', userId);
+  }
 }
