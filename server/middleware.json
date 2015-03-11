@@ -11,6 +11,8 @@
   },
   "parse": {
   },
+  "routes:before": {
+  },
   "routes": {
   },
   "files": {
