@@ -15,9 +15,10 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'lbServices'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, LoopBackResourceProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -38,4 +39,6 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+    //LoopBackResourceProvider.setUrlBase(ENV.apiEndpoint);
   });
