@@ -9,6 +9,7 @@
  */
 angular.module('tiquetmeApp')
   .controller('MainCtrl', ['$scope', 'User', function($scope, User) {
+    window.SCOPE = $scope;
     $scope.isLoggedIn = function() {
       return User.isAuthenticated();
     };

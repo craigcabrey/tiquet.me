@@ -1,6 +1,9 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var app = module.exports = loopback();
+var morgan = require('morgan');
+
+app.middleware('initial', morgan('short'));
 
 // Authentication Configuration
 var loopbackPassport = require('loopback-component-passport');
@@ -19,11 +22,18 @@ boot(app, __dirname);
 
 app.use(loopback.compress());
 
+passportConfigurator.init();
+
+// We need flash messages to see passport errors
+var flash = require('express-flash');
+app.use(flash());
+
 passportConfigurator.setupModels({
   userModel: app.models.user,
   userIdentityModel: app.models.userIdentity,
   userCredentialModel: app.models.userCredential
 });
+
 for (var s in config) {
   var c = config[s];
   c.session = c.session !== false;
