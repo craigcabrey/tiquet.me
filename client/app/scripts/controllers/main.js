@@ -8,7 +8,7 @@
  * Controller of the tiquetmeApp
  */
 angular.module('tiquetmeApp')
-  .controller('MainCtrl', ['$scope', 'User', function($scope, User) {
+  .controller('MainCtrl', ['$scope', '$location', 'User', function($scope, $location, User) {
     window.SCOPE = $scope;
     if(User.isAuthenticated()) {
       $location.path("/home");
