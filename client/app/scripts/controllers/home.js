@@ -31,10 +31,11 @@ angular.module('tiquetmeApp')
       User.logout({},
         function(success) {
           document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+          $scope.user = null;
           $location.path("/");
         }
       );
-    }
+    };
 
     // Dashboard js
     $('#side-menu').metisMenu();
