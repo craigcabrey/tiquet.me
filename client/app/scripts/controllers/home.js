@@ -9,8 +9,18 @@
  */
 angular.module('tiquetmeApp')
   .controller('HomeCtrl', ['$scope', '$location', 'User', function($scope, $location, User) {
-    if(!User.isAuthenticated()) {
-      //$location.path("/");
+    if(User.isAuthenticated()) {
+      $scope.user = User.getCurrent(
+        function (success) {
+          // Get user data
+          User.identities({id: success.id}, function(identities) {
+            $scope.user.displayName = identities[0].profile.displayName;
+          });
+        }
+      );
+    } else {
+      $scope.user = null;
+      $location.path("/");
     }
     $scope.isLoggedIn = function() {
       return User.isAuthenticated();
@@ -19,8 +29,8 @@ angular.module('tiquetmeApp')
     // Dashboard js
     $('#side-menu').metisMenu();
     $(window).bind("load resize", function() {
-        topOffset = 50;
-        width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+        var topOffset = 50;
+        var width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
         if (width < 768) {
             $('div.navbar-collapse').addClass('collapse');
             topOffset = 100; // 2-row-menu
@@ -28,7 +38,7 @@ angular.module('tiquetmeApp')
             $('div.navbar-collapse').removeClass('collapse');
         }
 
-        height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
+        var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
         height = height - topOffset;
         if (height < 1) height = 1;
         if (height > topOffset) {

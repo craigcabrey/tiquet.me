@@ -10,6 +10,9 @@
 angular.module('tiquetmeApp')
   .controller('MainCtrl', ['$scope', 'User', function($scope, User) {
     window.SCOPE = $scope;
+    if(User.isAuthenticated()) {
+      $location.path("/home");
+    }
     $scope.isLoggedIn = function() {
       return User.isAuthenticated();
     };
