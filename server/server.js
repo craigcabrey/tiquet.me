@@ -1,12 +1,15 @@
-var loopback = require('loopback');
 var boot = require('loopback-boot');
-var app = module.exports = loopback();
-var morgan = require('morgan');
-
-app.middleware('initial', morgan('short'));
-
-// Authentication Configuration
+var logger = require('winston');
+var loopback = require('loopback');
 var loopbackPassport = require('loopback-component-passport');
+
+// Loopback Application Singleton
+var app = module.exports = loopback();
+app.use(loopback.compress());
+
+boot(app, __dirname);
+
+// Being Authentication Configuration
 var PassportConfigurator = loopbackPassport.PassportConfigurator;
 var passportConfigurator = new PassportConfigurator(app);
 
@@ -14,20 +17,11 @@ var config = {};
 try {
   config = require('./providers.json');
 } catch (err) {
-  console.trace(err);
+  logger.error('No authentication providers found, aborting server boot up.');
   process.exit(1);
 }
 
-boot(app, __dirname);
-
-app.use(loopback.compress());
-
 passportConfigurator.init();
-
-// We need flash messages to see passport errors
-var flash = require('express-flash');
-app.use(flash());
-
 passportConfigurator.setupModels({
   userModel: app.models.user,
   userIdentityModel: app.models.userIdentity,
@@ -39,16 +33,16 @@ for (var s in config) {
   c.session = c.session !== false;
   passportConfigurator.configureProvider(s, c);
 }
+// End Authentication Configuration
 
 app.start = function() {
-  // start the web server
   return app.listen(function() {
     app.emit('started');
     console.log('Web server listening at: %s', app.get('url'));
   });
 };
 
-// start the server if `$ node server.js`
+// Start the server if invoked directly.
 if (require.main === module) {
   app.start();
 }
