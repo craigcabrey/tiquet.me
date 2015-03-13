@@ -1,5 +1,6 @@
 # Don't include any production configuration files
 *.production.*
+*.staging.*
 
 # vim .swp files
 *.swp
