@@ -45,3 +45,6 @@ node_modules
 
 # Authentication Details
 providers.json
+
+# Deploy scrips directory
+scripts/
