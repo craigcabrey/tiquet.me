@@ -17,11 +17,13 @@ var PassportConfigurator = loopbackPassport.PassportConfigurator;
 var passportConfigurator = new PassportConfigurator(app);
 
 var config = {};
-try {
-  config = require('./providers.json');
-} catch (err) {
-  logger.error('No authentication providers found, aborting server boot up.');
-  process.exit(1);
+if(process.env.NODE_ENV !=='development') {
+  try {
+    config = require('./providers.json');
+  } catch (err) {
+    logger.error('No authentication providers found, aborting server boot up.');
+    process.exit(1);
+  }
 }
 
 passportConfigurator.init();
@@ -31,10 +33,12 @@ passportConfigurator.setupModels({
   userCredentialModel: app.models.userCredential
 });
 
-for (var s in config) {
-  var c = config[s];
-  c.session = c.session !== false;
-  passportConfigurator.configureProvider(s, c);
+if(process.env.NODE_ENV !=='development') {
+  for (var s in config) {
+    var c = config[s];
+    c.session = c.session !== false;
+    passportConfigurator.configureProvider(s, c);
+  }
 }
 // End Authentication Configuration
 

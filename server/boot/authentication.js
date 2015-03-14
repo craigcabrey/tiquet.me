@@ -1,4 +1,6 @@
 module.exports = function enableAuthentication(server) {
   // enable authentication
-  //server.enableAuth();
+  if(process.env.NODE_ENV !=='development') {
+    server.enableAuth();
+  }
 };
