@@ -1,3 +1,4 @@
+var bodyParser = require('body-parser');
 var boot = require('loopback-boot');
 var logger = require('winston');
 var loopback = require('loopback');
@@ -5,6 +6,8 @@ var loopbackPassport = require('loopback-component-passport');
 
 // Loopback Application Singleton
 var app = module.exports = loopback();
+
+app.use(bodyParser.json());
 app.use(loopback.compress());
 
 boot(app, __dirname);
