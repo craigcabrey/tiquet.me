@@ -15,6 +15,7 @@
     "loopback-component-passport": "^1.2.0",
     "loopback-datasource-juggler": "^2.7.0",
     "node-github": "0.0.3",
+    "morgan": "^1.5.1",
     "passport": "^0.2.1",
     "passport-github": "^0.1.5",
     "passport-local": "^1.0.0",
