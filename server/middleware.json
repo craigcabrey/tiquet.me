@@ -12,6 +12,7 @@
   "parse": {
   },
   "routes:before": {
+    "./middleware/currentUser.js": {}
   },
   "routes": {
   },
