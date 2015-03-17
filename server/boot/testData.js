@@ -1,6 +1,6 @@
 "use strict";
 
-var GithubAPI = require('node-github');
+var GithubAPI = require('github');
 
 /**
  * Adds a user to the app for testing
