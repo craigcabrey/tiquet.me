@@ -29,6 +29,10 @@ body {
     }
 }
 
+.scroll-width {
+    width: 150%;
+}
+
 .navbar-top-links {
     margin-right: 0;
 }
