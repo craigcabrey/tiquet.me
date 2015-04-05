@@ -1,0 +1,57 @@
+{
+  "name": "Ticket",
+  "plural": "tickets",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "mysql": {
+      "table": "tickets"
+    }
+  },
+  "properties": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true,
+      "dataType": "text"
+    },
+    "sha": {
+      "type": "string"
+    },
+    "ticketId": {
+      "type": "number",
+      "required": true
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "updated": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "assignee": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": ""
+    },
+    "tickets": {
+      "type": "hasMany",
+      "model": "Ticket",
+      "foreignKey": "parentId"
+    },
+    "repository": {
+      "type": "belongsTo",
+      "model": "Repository",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": []
+}

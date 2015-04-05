@@ -33,5 +33,21 @@
   "Role": {
     "dataSource": "db",
     "public": false
+  },
+  "Repository": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Ticket": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Comment": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Tag": {
+    "dataSource": "db",
+    "public": true
   }
 }

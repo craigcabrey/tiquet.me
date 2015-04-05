@@ -17,7 +17,7 @@ var PassportConfigurator = loopbackPassport.PassportConfigurator;
 var passportConfigurator = new PassportConfigurator(app);
 
 var config = {};
-if(process.env.NODE_ENV !=='development') {
+if (process.env.NODE_ENV !=='development') {
   try {
     config = require('./providers.json');
   } catch (err) {
@@ -33,7 +33,7 @@ passportConfigurator.setupModels({
   userCredentialModel: app.models.userCredential
 });
 
-if(process.env.NODE_ENV !=='development') {
+if (process.env.NODE_ENV !=='development') {
   for (var s in config) {
     var c = config[s];
     c.session = c.session !== false;
