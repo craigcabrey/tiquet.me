@@ -1,3 +1,3 @@
-module.exports = function(Comment) {
+module.exports = function(comment) {
 
 };

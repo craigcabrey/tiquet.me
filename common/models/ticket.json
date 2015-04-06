@@ -1,5 +1,5 @@
 {
-  "name": "Ticket",
+  "name": "ticket",
   "plural": "tickets",
   "base": "PersistedModel",
   "idInjection": true,
@@ -18,12 +18,13 @@
       "required": true,
       "dataType": "text"
     },
-    "sha": {
-      "type": "string"
-    },
-    "ticketId": {
+    "number": {
       "type": "number",
       "required": true
+    },
+    "sha": {
+      "type": "string",
+      "required": false
     },
     "created": {
       "type": "date",
@@ -36,6 +37,11 @@
   },
   "validations": [],
   "relations": {
+    "reporter": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": ""
+    },
     "assignee": {
       "type": "belongsTo",
       "model": "user",
@@ -43,12 +49,12 @@
     },
     "tickets": {
       "type": "hasMany",
-      "model": "Ticket",
+      "model": "ticket",
       "foreignKey": "parentId"
     },
     "repository": {
       "type": "belongsTo",
-      "model": "Repository",
+      "model": "repository",
       "foreignKey": ""
     }
   },
