@@ -30,9 +30,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <!-- /.panel -->
-                    <!-- /.panel -->
-                    <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-repeat="project in projects">
+                    <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="projects.length > 0" ng-repeat="project in projects">
                         <div class="panel-heading scroll-width">
                             {{project.user_name}}/{{project.project_name}}
                         </div>
