@@ -34,19 +34,19 @@
     "dataSource": "db",
     "public": false
   },
-  "Repository": {
+  "repository": {
     "dataSource": "db",
     "public": true
   },
-  "Ticket": {
+  "ticket": {
     "dataSource": "db",
     "public": true
   },
-  "Comment": {
+  "comment": {
     "dataSource": "db",
     "public": true
   },
-  "Tag": {
+  "tag": {
     "dataSource": "db",
     "public": true
   }
