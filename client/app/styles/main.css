@@ -15,6 +15,17 @@ body {
   background-image: url('../images/geometry2.png');
 }
 
+.ticket-well-container-scroll {
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.ticket-well-panel-scroll {
+  width: 150%;  /* Adjust to taste */
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
 .title-container {
   position: absolute;
   top: 40%;
