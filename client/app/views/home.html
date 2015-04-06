@@ -12,7 +12,7 @@
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        {{user.displayName }}User Name <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
@@ -34,7 +34,6 @@
                     <!-- /.panel -->
                     <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-repeat="project in projects">
                         <div class="panel-heading scroll-width">
-                            <i class="fa fa-comments fa-fw"></i>
                             {{project.user_name}}/{{project.project_name}}
                         </div>
                         <!-- /.panel-heading -->
