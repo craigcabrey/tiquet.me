@@ -31,37 +31,31 @@
             <div class="row">
                 <div class="col-lg-12">
                     <!-- Username/Repository Input Field -->
-                    <form ng-show="projects.length <= 0" class="search ng-pristine ng-valid focus" id="searchInput" ng-submit="search()">
+                    <form ng-show="repos.length <= 0" class="search ng-pristine ng-valid focus" id="searchInput" ng-submit="search()">
                         <h3>You haven't added any repos yet! Let's get started.</h3>
                         <div class="input search"> 
-                            <input class="search-input ng-pristine ng-valid ng-touched" type="text" ng-change="repoInputUpdate()" id="" ng-model="repositoryName" placeholder="Enter username/repositoryname" autocomplete="off"> 
+                            <input class="search-input ng-pristine ng-valid ng-touched" type="text" ng-change="repoInputUpdate()" ng-model="repositoryName" placeholder="Enter username/repositoryname" autocomplete="off"> 
                         </div> 
                     </form> 
-                    <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-hide="projects.length > 0" ng-repeat="project in projects">
+                    <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="repos.length > 0" ng-repeat="project in repos">
                         <div class="panel-heading scroll-width">
-                            {{project.user_name}}/{{project.project_name}}
+                            {{testUser.name}}
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body ticket-well-panel-scroll">
-                            <div class="col-lg-3 col-md-6" ng-repeat="ticket in project.tickets">
+                            <div class="col-lg-3 col-md-6" ng-repeat="ticket in testUser.tickets">
                                 <div class="panel panel-green">
                                     <div class="panel-heading">
                                         <div class="row">
                                             <div class="col-xs-10 text-left">
-                                                <h4>{{ticket.ticket_name}}</h4>
-                                            </div>
-                                            <div class="col-xs-1 text-right">
-                                                {{ticket.id}}
+                                                <h4>{{ticket.title}}</h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#">
-                                        <div class="panel-footer">
-                                            <span class="pull-left">View Details</span>
-                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
+                                    <div class="panel-footer">
+                                        <p>{{ticket.description}}</p>
+                                        <div class="clearfix"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
