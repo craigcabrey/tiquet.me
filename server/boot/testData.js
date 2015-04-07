@@ -33,7 +33,7 @@ module.exports = function (app) {
 
     // Create test user
     github.user.get({}, function(err, res) {
-      app.models.Useridentity.login("github-login", "oAuth 2.0", res, {accessToken: devData.token}, {autoLogin: true}, function(err, user, identity, token) {
+      app.models.UserIdentity.login("github-login", "oAuth 2.0", res, {accessToken: devData.token}, {autoLogin: true}, function(err, user, identity, token) {
         if (err === null) {
           console.log("Access Token: " + token.id);
         }

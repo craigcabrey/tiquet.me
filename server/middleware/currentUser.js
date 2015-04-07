@@ -7,7 +7,7 @@ module.exports = function() {
 	return next();
     }
     app.models.AccessToken.findById(req.query.access_token, function(err, token) {
-	if (!err) {
+	if (token !== null) {
 	    var userId = token.userId;
     	    app.models.User.findOne({where: {id: userId}, include: ['identities']}, function(err, user) {
             if (err) {

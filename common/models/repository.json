@@ -20,15 +20,15 @@
     },
     "created": {
       "type": "date",
-      "required": true
+      "required": false
     },
     "updated": {
       "type": "date",
-      "required": true
+      "required": false
     },
     "ownerId": {
       "type": "number",
-      "required": true
+      "required": false
     }
   },
   "validations": [],
