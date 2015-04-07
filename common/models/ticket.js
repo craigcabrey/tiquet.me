@@ -1,3 +1,3 @@
-module.exports = function(Ticket) {
+module.exports = function(ticket) {
 
 };

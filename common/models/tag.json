@@ -1,5 +1,5 @@
 {
-  "name": "Tag",
+  "name": "tag",
   "plural": "tags",
   "base": "PersistedModel",
   "idInjection": true,
@@ -22,7 +22,7 @@
   "relations": {
     "repository": {
       "type": "belongsTo",
-      "model": "Repository",
+      "model": "repository",
       "foreignKey": ""
     }
   },

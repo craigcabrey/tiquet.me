@@ -1,5 +1,5 @@
 {
-  "name": "Comment",
+  "name": "comment",
   "plural": "comments",
   "base": "PersistedModel",
   "idInjection": true,
@@ -32,7 +32,7 @@
     },
     "ticket": {
       "type": "belongsTo",
-      "model": "Ticket",
+      "model": "ticket",
       "foreignKey": ""
     }
   },

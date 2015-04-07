@@ -1,3 +1,3 @@
-module.exports = function(Repository) {
+module.exports = function(repository) {
 
 };

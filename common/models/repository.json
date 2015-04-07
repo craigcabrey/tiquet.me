@@ -1,5 +1,5 @@
 {
-  "name": "Repository",
+  "name": "repository",
   "plural": "repositories",
   "base": "PersistedModel",
   "idInjection": true,
@@ -12,6 +12,11 @@
     "name": {
       "type": "string",
       "required": true
+    },
+    "description": {
+      "type": "string",
+      "dataType": "text",
+      "required": false
     },
     "created": {
       "type": "date",
@@ -30,12 +35,12 @@
   "relations": {
     "tickets": {
       "type": "hasMany",
-      "model": "Ticket",
+      "model": "ticket",
       "foreignKey": ""
     },
     "tags": {
       "type": "hasMany",
-      "model": "Tag",
+      "model": "tag",
       "foreignKey": ""
     }
   },
