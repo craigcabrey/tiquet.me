@@ -1,5 +1,6 @@
 var bodyParser = require('body-parser');
 var boot = require('loopback-boot');
+var express = require('express');
 var logger = require('winston');
 var loopback = require('loopback');
 var loopbackPassport = require('loopback-component-passport');
@@ -9,6 +10,9 @@ var app = module.exports = loopback();
 
 app.use(bodyParser.json());
 app.use(loopback.compress());
+
+app.use(express.static('client/app'));
+app.use('/bower_components', express.static('client/bower_components'));
 
 boot(app, __dirname);
 
