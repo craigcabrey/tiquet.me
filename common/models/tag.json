@@ -24,6 +24,11 @@
       "type": "belongsTo",
       "model": "repository",
       "foreignKey": ""
+    },
+    "tickets": {
+      "type": "hasMany",
+      "model": "ticket",
+      "through": "tickettag"
     }
   },
   "acls": [],

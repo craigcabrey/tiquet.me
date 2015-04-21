@@ -49,5 +49,9 @@
   "tag": {
     "dataSource": "db",
     "public": true
+  },
+  "tickettag": {
+    "dataSource": "db",
+    "public": false
   }
 }

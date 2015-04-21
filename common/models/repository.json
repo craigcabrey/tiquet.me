@@ -26,8 +26,8 @@
       "type": "date",
       "required": false
     },
-    "ownerId": {
-      "type": "number",
+    "ownerName": {
+      "type": "string",
       "required": false
     }
   },
@@ -42,6 +42,10 @@
       "type": "hasMany",
       "model": "tag",
       "foreignKey": ""
+    },
+    "owner": {
+      "type": "belongsTo",
+      "model": "User"
     }
   },
   "acls": [],

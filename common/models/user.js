@@ -16,6 +16,35 @@ module.exports = function(User) {
     });
   }
 
+  User.createFromGithub = function(userName, authtoken, cb) {
+    var github = new GithubAPI({version: "3.0.0"});
+    github.authenticate({
+      type: "oauth",
+      token: authtoken
+    });
+    github.user.getFrom({user: userName}, function(err, res) {
+      console.log(res);
+      delete res.meta;
+      User.create({
+        username: "github-login." + res.id,
+        email: res.id + "@loopback.github-login.com",
+        password: "ojkasih8o4qgh0ehq45gf4ags52"
+      }, function(err, user) {
+        user.identities.create({
+          provider: "github-login",
+          authScheme: "oAuth 2.0",
+          externalId: res.id,
+          profile: res,
+          credentials: {
+            accessToken: null
+          }
+        }, function(err, identity) {
+          cb(user);
+        })
+      })
+    })
+  };
+
   User.prototype.repositories = function(cb) {
     useGithub(this, function(github) {
       github.repos.getAll({}, function(err, repos) {
