@@ -28,7 +28,7 @@ module.exports = function(repository) {
       instance.description = res.description;
       instance.created = res.created_at;
       instance.updated = res.updated_at;
-      instance.ownerId = res.owner.id;
+      instance.ownerId = currentUser.id;
       instance.ownerName = userName;
       next();
     });
@@ -102,6 +102,7 @@ module.exports = function(repository) {
             });
 
             //Associate ticket reporter with user
+
             app.models.User.findOrCreate({
               where: {
                 username: "github-login." + issue.user.id
@@ -112,22 +113,20 @@ module.exports = function(repository) {
               password: "ifyuaghf0874g0qa8dbfa"
             }, function(err, user) {
               ticket.updateAttribute("reporterId", user.id, function(err, wut) {});
-              if (user.identities() === undefined) {
-                github.user.getFrom({
-                  user: issue.user.login
-                }, function(err, res) {
-                  delete res.meta;
-                  user.identities.create({
-                    provider: "github-login",
-                    authScheme: "oAuth 2.0",
-                    externalId: res.id,
-                    profile: res,
-                    credentials: {
-                      accessToken: null
-                    }
-                  }, function(err, identity) {});
-                });
-              }
+              app.models.UserIdentity.findOrCreate({
+                where: {
+                  userId: user.id
+                }
+              }, {
+                provider: "generated-profile",
+                authScheme: "none",
+                externalId: issue.user.id,
+                profile: issue.user,
+                credentials: {
+                  accessToken: null
+                },
+                userId: user.id
+              }, function(err, wut) {});
             });
 
             //Associate ticker assignee with user
@@ -143,23 +142,20 @@ module.exports = function(repository) {
               }, function (err, user) {
                 ticket.updateAttribute("assigneeId", user.id, function (err, wut) {
                 });
-                if (user.identities() === undefined) {
-                  github.user.getFrom({
-                    user: issue.assignee.login
-                  }, function (err, res) {
-                    delete res.meta;
-                    user.identities.create({
-                      provider: "github-login",
-                      authScheme: "oAuth 2.0",
-                      externalId: res.id,
-                      profile: res,
-                      credentials: {
-                        accessToken: null
-                      }
-                    }, function (err, identity) {
-                    });
-                  });
-                }
+                app.models.UserIdentity.findOrCreate({
+                  where: {
+                    userId: user.id
+                  }
+                }, {
+                  provider: "generated-profile",
+                  authScheme: "none",
+                  externalId: issue.assignee.id,
+                  profile: issue.assignee,
+                  credentials: {
+                    accessToken: null
+                  },
+                  userId: user.id
+                }, function(err, wut) {});
               });
             }
           });

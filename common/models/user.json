@@ -22,7 +22,8 @@
     },
     "repositories": {
       "type": "hasMany",
-      "model": "repository"
+      "model": "repository",
+      "foreignKey": "ownerId"
     }
   },
   "acls": [],
