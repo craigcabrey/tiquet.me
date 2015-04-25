@@ -152,4 +152,20 @@ router.get('/', function(req, res, next) {
   ]);
 });
 
+router.post('/', function(req, res, next) {
+  res.json(req.body);
+});
+
+router.post('/:id/tickets/:ticketid/tickets', function(req, res, next) {
+  res.json(req.body);
+});
+
+router.put('/:id', function(req, res, next) {
+  req.json(req.body);
+});
+
+router.post('/:id/tickets/:ticketid/comments', function(req, res, next) {
+  req.json(req.body);
+});
+
 module.exports = router;
