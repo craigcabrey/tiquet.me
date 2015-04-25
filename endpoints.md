@@ -1,4 +1,4 @@
-##### POST / repositiores
+##### POST /repositiories
 ```
 {
 "name": owner/name
@@ -34,9 +34,7 @@
 }
 ```
 
-##### PUT /repositories/
-
-##### PUT / repositories/:id
+##### PUT /repositories/:id
 ```
 {
 "tags": [{
