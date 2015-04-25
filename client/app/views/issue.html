@@ -1,0 +1,41 @@
+<div>
+  <h1>{{ issue.title }}</h1>
+  <h3><small>Created: {{ issue.created }}, Updated: {{ issue.updated }}</small></h3>
+  <div class="well">
+      {{ issue.description }}
+  </div>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div ng-repeat="subissue in issue.subissues">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading{{subissue.id}}">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapse{{subissue.id}}" aria-expanded="false" aria-controls="collapse{{subissue.id}}">
+              {{ subissue.title }} 
+            </a>
+            <a href='#{{subissue.id}}'>
+              <span style='float:right' href='#{{subissue.id}}' class='glyphicon glyphicon-share-alt'></span>
+            </a>
+          </h4>
+        </div>
+        <div id="collapse{{subissue.id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading{{subissue.id}}">
+        <div class="panel-body">
+          {{ subissue.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <h4>Comments</h4>
+  <ul class="list-group">
+      <div ng-repeat="comment in issue.comments" class="list-group-item">
+          <strong>{{ comment.author }}: </strong>{{ comment.text }}
+      </div>
+  </ul>
+  <hr>
+  <div class='input-group'>
+    <input type='text' class='form-control' placeholder='Leave a comment...'></input>
+    <span class='input-group-btn'>
+      <button class='btn btn-default'><span class='glyphicon glyphicon-send'></span></button>
+    </span>
+  </div>
+</div>
