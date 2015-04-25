@@ -15,10 +15,9 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
-    'lbServices'
+    'ngTouch'
   ])
-  .config(function ($routeProvider, LoopBackResourceProvider) {
+  .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
