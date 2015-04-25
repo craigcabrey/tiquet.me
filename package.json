@@ -13,6 +13,8 @@
     "jade": "~1.9.2",
     "morgan": "~1.5.1",
     "mysql": "^2.6.2",
+    "passport": "^0.2.1",
+    "passport-github": "^0.1.5",
     "serve-favicon": "~2.2.0"
   }
 }
