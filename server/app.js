@@ -11,6 +11,22 @@ var repositories = require('./routes/repositories');
 var tickets = require('./routes/tickets');
 var comments = require('./routes/comments');
 
+var connection = mysql.createConnection({
+  host: process.env.OPENSHIFT_MYSQL_DB_HOST || 'localhost',
+  user: process.env.OPENSHIFT_MYSQL_DB_USERNAME || 'root',
+  password: process.env.OPENSHIFT_MYSQL_DB_PASSWORD || '',
+  database: process.env.OPENSHIFT_MYSQL_DATABASE || 'togglio'
+});
+
+connection.connect(function(err) {
+  if (err) {
+    console.error('Error connecting to database.');
+    return;
+  }
+
+  console.log('Connected to database.');
+});
+
 var app = express();
 
 // uncomment after placing your favicon in /public
