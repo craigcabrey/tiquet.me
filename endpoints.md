@@ -2,9 +2,11 @@
 ```
 {
 "name": owner/name
-}```
+}  
+```  
 
-##### POST /repositories/:id/ticket
+##### POST /repositories/:id/ticket  
+
 ```
 {
   "title": title,
