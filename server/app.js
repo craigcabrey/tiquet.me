@@ -64,7 +64,6 @@ app.use(express.static(path.join(__dirname, '../client/app')));
 app.use('/bower_components', express.static(path.join(__dirname, '../client/bower_components')));
 
 if (app.get('env') === 'development') {
-  app.use('/', routes);
   app.use('/users', users);
   app.use('/repositories', repositories);
 
@@ -82,7 +81,6 @@ if (app.get('env') === 'development') {
     });
   });
 } else if (app.get('env') === 'frontend-dev') {
-  app.use('/', routes);
   app.use('/users', test_users);
   app.use('/repositories', test_repositories);
 
@@ -92,7 +90,6 @@ if (app.get('env') === 'development') {
     next(err);
   });
 } else {
-  app.use('/', routes);
   app.use('/users', users);
   app.use('/repositories', repositories);
 
@@ -109,6 +106,14 @@ if (app.get('env') === 'development') {
       error: {}
     });
   });
+}
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect('/login')
 }
 
 module.exports = app;
