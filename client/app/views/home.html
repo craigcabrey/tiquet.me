@@ -5,7 +5,7 @@
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">tiquet.me</a> 
+                <a class="navbar-brand" href="index.html">tiquet.me</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -31,19 +31,19 @@
             <div class="row">
                 <div class="col-lg-12">
                     <!-- Username/Repository Input Field -->
-                    <form ng-show="repos.length <= 0" class="search ng-pristine ng-valid focus" id="searchInput" ng-submit="search()">
+                    <form ng-show="repositoryCount <= 0" class="search ng-pristine ng-valid focus" id="searchInput" ng-submit="search()">
                         <h3>You haven't added any repos yet! Let's get started.</h3>
-                        <div class="input search"> 
-                            <input class="search-input ng-pristine ng-valid ng-touched" type="text" ng-change="repoInputUpdate()" ng-model="repositoryName" placeholder="Enter username/repositoryname" autocomplete="off"> 
-                        </div> 
-                    </form> 
-                    <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="repos.length > 0" ng-repeat="project in repos">
+                        <div class="input search">
+                            <input class="search-input ng-pristine ng-valid ng-touched" type="text" ng-change="repoInputUpdate()" ng-model="repositoryName" placeholder="Enter username/repositoryname" autocomplete="off">
+                        </div>
+                    </form>
+                    <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="repositoryCount > 0">
                         <div class="panel-heading scroll-width">
-                            {{testUser.name}}
+                            {{repositories[0].id}}: {{repositories[0].name}}
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body ticket-well-panel-scroll">
-                            <div class="col-lg-3 col-md-6" ng-repeat="ticket in testUser.tickets">
+                            <div class="col-lg-3 col-md-6" ng-repeat="ticket in repositories[0].tickets">
                                 <div class="panel panel-green">
                                     <div class="panel-heading">
                                         <div class="row">
@@ -53,7 +53,9 @@
                                         </div>
                                     </div>
                                     <div class="panel-footer">
-                                        <p>{{ticket.description}}</p>
+                                        <p ng-show="ticket.state === 'open'">{{ticket.state}}</p>
+                                        <p>{{ticket.assignee.email}}</p>
+                                        <p>{{ticket.body}}</p>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
