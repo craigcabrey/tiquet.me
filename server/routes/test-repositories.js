@@ -91,7 +91,7 @@ router.get('/', function(req, res, next) {
         },
         {
           id: 2,
-          state: "open",
+          state: "closed",
           title: "first ticket",
           assignee: {
             id: 1,

@@ -29,6 +29,11 @@ body {
   padding: 10px;
 }
 
+.ticket-closed {
+  background-color: rgb(182, 5, 5) !important;
+  border-color: rgb(182, 5, 5) !important;
+}
+
 .ticket-well-container-scroll {
   overflow-y: hidden;
   overflow-x: scroll;
