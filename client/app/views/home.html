@@ -27,6 +27,8 @@
             </ul>
         </nav>
 
+
+
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -37,23 +39,26 @@
                             <input class="search-input ng-pristine ng-valid ng-touched" type="text" ng-change="repoInputUpdate()" ng-model="repositoryName" placeholder="Enter username/repositoryname" autocomplete="off">
                         </div>
                     </form>
-                    <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="repositoryCount > 0">
+
+                    <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="repositoryCount > 0" ng-repeat="project in repositories">
                         <div class="panel-heading scroll-width">
-                            {{repositories[0].id}}: {{repositories[0].name}}
+                            {{project.id}}: {{project.name}}
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body ticket-well-panel-scroll">
-                            <div class="col-lg-3 col-md-6" ng-repeat="ticket in repositories[0].tickets">
-                                <div class="panel panel-green ticket-shell">
-                                    <div class="panel-heading">
-                                        <div class="row">
+                            <div class="col-lg-3 col-md-6" ng-repeat="ticket in project.tickets">
+
+                                <div class="panel panel-green ticket-shell" data-toggle="modal" data-target="#ticketDetail" ng-class="{'ticket-closed':ticket.state === 'closed'}">
+                                    <div class="panel-heading" ng-class="{'ticket-closed':ticket.state === 'closed'}">
+                                        <div class="row" ng-class="{'ticket-closed':ticket.state === 'closed'}">
                                             <div class="col-xs-10 text-left">
-                                                <h4>{{ticket.title}}</h4>
+                                                <h4>{{ticket.id}}: {{ticket.title}}</h4>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="panel-footer">
-                                        <p ng-show="ticket.state === 'open'">{{ticket.state}}</p>
+                                        <p>{{ticket.state}}</p>
                                         <p>{{ticket.assignee.email}}</p>
                                         <p>{{ticket.body}}</p>
                                         <div class="clearfix"></div>
