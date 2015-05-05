@@ -34,6 +34,11 @@ body {
   border-color: rgb(182, 5, 5) !important;
 }
 
+.ticket-new-button:hover {
+  font-weight: 900;
+  cursor: pointer;
+}
+
 .ticket-well-container-scroll {
   overflow-y: hidden;
   overflow-x: scroll;
