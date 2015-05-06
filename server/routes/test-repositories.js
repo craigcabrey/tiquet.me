@@ -24,6 +24,7 @@ router.get('/', function(req, res, next) {
           id: 1,
           state: "open",
           title: "first ticket",
+          updated: new Date(),
           assignee: {
             id: 1,
             name: "one potato",
@@ -93,6 +94,7 @@ router.get('/', function(req, res, next) {
           id: 2,
           state: "closed",
           title: "first ticket",
+          updated: new Date(),
           assignee: {
             id: 1,
             name: "one potato",
@@ -146,6 +148,71 @@ router.get('/', function(req, res, next) {
               color: "#123456"
             }
           ]
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: "test/testy",
+      tickets: [
+        {
+          id: 3,
+          state: "open",
+          title: "first ticket",
+          assignee: {
+            id: 1,
+            name: "one potato",
+            email: "one@potato.com"
+          },
+          body: "shit's broken"
+        },
+        {
+          id: 4,
+          state: "closed",
+          title: "first ticket",
+          assignee: {
+            id: 1,
+            name: "one potato",
+            email: "one@potato.com"
+          },
+          reporter: {
+            id: 1,
+            name: "one potato",
+            email: "one@potato.com"
+          },
+          body: "shit's broken"
+        },
+        {
+          id: 5,
+          state: "closed",
+          title: "first ticket",
+          assignee: {
+            id: 1,
+            name: "one potato",
+            email: "one@potato.com"
+          },
+          reporter: {
+            id: 1,
+            name: "one potato",
+            email: "one@potato.com"
+          },
+          body: "shit's broken"
+        },
+        {
+          id: 6,
+          state: "closed",
+          title: "first ticket",
+          assignee: {
+            id: 1,
+            name: "one potato",
+            email: "one@potato.com"
+          },
+          reporter: {
+            id: 1,
+            name: "one potato",
+            email: "one@potato.com"
+          },
+          body: "shit's broken"
         }
       ]
     }

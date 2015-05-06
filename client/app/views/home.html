@@ -1,3 +1,4 @@
+        <div ng-include="'/views/ticketDetail.html'"></div>
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -37,7 +38,6 @@
                             <input class="search-input ng-pristine ng-valid ng-touched" type="text" ng-change="repoInputUpdate()" ng-model="repositoryName" placeholder="Enter username/repositoryname" autocomplete="off">
                         </div>
                     </form>
-
                     <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="repositoryCount > 0" ng-repeat="project in repositories">
                         <div class="row panel-heading scroll-width">
                             <div class="col-md-7">{{project.id}}: {{project.name}}</div>
@@ -46,9 +46,12 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body ticket-well-panel-scroll">
                             <div class="col-lg-2 col-md-6"
-                                 ng-repeat="ticket in project.tickets">
+                                 ng-repeat="ticket in project.tickets"
+                              ng-click="open(ticket)">
 
-                                <div class="panel panel-green ticket-shell" data-toggle="modal" data-target="#ticketDetail" ng-class="{'ticket-closed':ticket.state === 'closed'}">
+                                <div class="panel panel-green ticket-shell" data-toggle="modal"
+                                     data-target="#ticketDetail"
+                                     ng-class="{'ticket-closed':ticket.state === 'closed'}">
                                     <div class="panel-heading" ng-class="{'ticket-closed':ticket.state === 'closed'}">
                                         <div class="row" ng-class="{'ticket-closed':ticket.state === 'closed'}">
                                             <div class="col-xs-10 text-left">

@@ -8,7 +8,7 @@
  * Controller of the tiquetmeApp
  */
 angular.module('tiquetmeApp')
-  .controller('HomeCtrl', ['$http', '$scope', '$location', function($http, $scope, $location) {
+  .controller('HomeCtrl', ['$http', '$scope', '$location', '$modal', '$log', function($http, $scope, $location, $modal, $log) {
 // TODO: waiting for auth
     // if (User.isAuthenticated()) {
     //   $scope.user = User.getCurrent(
@@ -37,7 +37,6 @@ angular.module('tiquetmeApp')
     //     }
     //   );
     // };
-
   $scope.createTicket = function() {
     var ticketPayload =
     {
@@ -73,4 +72,47 @@ angular.module('tiquetmeApp')
     }
     $scope.repositoryCount = count;
   });
+
+    // Ticket detail modal
+    $scope.items = ['item1', 'item2', 'item4'];
+    $scope.open = function (ticket, size) {
+      var modalInstance = $modal.open({
+        templateUrl: 'ticketDetail.html',
+        controller: 'ModalInstanceCtrl',
+        size: size,
+        resolve: {  // used to pass locals into the modal scope
+          items: function () {
+            return $scope.items;
+          },
+          ticketDetail: function() {
+            return ticket;
+          }
+        }
+      });
+
+      // Dismissal
+      modalInstance.result.then(function (selectedItem) {
+        $scope.selected = selectedItem;
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
 }]);
+
+angular.module('tiquetmeApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, ticketDetail) {
+  $scope.ticketDetail = ticketDetail;
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  // Save the selection
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item, $scope.ticketDetail);
+  };
+
+  // Dismiss the modal
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
