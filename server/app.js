@@ -16,11 +16,16 @@ var repositories = require('./routes/repositories');
 var test_users = require('./routes/test-users');
 var test_repositories = require('./routes/test-repositories');
 
+var config = require('config.js');
+if (process.env.NODE_ENV === "production") {
+  config = require('config.production.js');
+}
+
 var connection = mysql.createConnection({
-  host: process.env.MYSQL_DB_HOST || 'localhost',
-  user: process.env.MYSQL_DB_USERNAME || 'tiquet',
-  password: process.env.MYSQL_DB_PASSWORD || '',
-  database: process.env.MYSQL_DATABASE || 'tiquet'
+  host: config.database.host,
+  user: config.database.username,
+  password: config.database.password,
+  database: config.database.database
 });
 
 connection.connect(function(err) {
@@ -59,9 +64,9 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new GitHubStrategy({
-    clientID: 'GITHUB_CLIENT_ID',
-    clientSecret: 'GITHUB_CLIENT_SECRET',
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    clientID: config.github.client_id,
+    clientSecret: config.github.client_secret,
+    callbackURL: "http://" + config.host + ":" + config.port + "/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     connection.query("SELECT * FROM user WHERE id = ?", [profile._json.id], function(err, results) {
