@@ -44,7 +44,10 @@ angular.module('tiquetmeApp')
       id: $scope.repositories[0].tickets.length - 1,
       state: "open",
       title: $scope.newTicketTitle,
-      body: $scope.newTicketDescription
+      body: $scope.newTicketDescription,
+      assignee: {
+        email: $scope.newTicketAssignee
+      }
     }
     $http.post('/newticket', ticketPayload).
       success(function(data) {

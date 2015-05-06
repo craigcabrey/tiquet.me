@@ -89,8 +89,17 @@
                 <br>
                 <div class="input-group">
                   <span class="input-group-addon">Description</span>
-                  <input type="text" class="form-control"
+                  <input type="text"
+                         placeholder="Wow. This is incredibly broken."
+                         class="form-control"
                          ng-model="newTicketDescription">
+                </div>
+                <br>
+                <div class="input-group">
+                  <span class="input-group-addon">Assignee</span>
+                  <input placeholder="dankrutz@aol.com" type="text"
+                  class="form-control"
+                         ng-model="newTicketAssignee">
                 </div>
                 <br>
                 <div class="btn-group" data-toggle="buttons">
