@@ -16,9 +16,9 @@ var repositories = require('./routes/repositories');
 var test_users = require('./routes/test-users');
 var test_repositories = require('./routes/test-repositories');
 
-var config = require('config.js');
-if (process.env.NODE_ENV === "production") {
-  config = require('config.production.js');
+var config = require('config');
+if (process.env.NODE_ENV !== null) {
+  config = require('config.' + process.env.NODE_ENV);
 }
 
 var connection = mysql.createConnection({
