@@ -9,8 +9,7 @@
  */
 angular.module('tiquetmeApp')
   .controller('HomeCtrl', ['$http', '$scope', '$location', function($http, $scope, $location) {
-
-    // TODO: waiting for auth
+// TODO: waiting for auth
     // if (User.isAuthenticated()) {
     //   $scope.user = User.getCurrent(
     //     function (success) {
@@ -38,6 +37,23 @@ angular.module('tiquetmeApp')
     //     }
     //   );
     // };
+
+  $scope.createTicket = function() {
+    var ticketPayload =
+    {
+      id: $scope.repositories[0].tickets.length - 1,
+      state: "open",
+      title: $scope.newTicketTitle,
+      body: $scope.newTicketDescription
+    }
+    $http.post('/newticket', ticketPayload).
+      success(function(data) {
+        $scope.repositories[0].tickets.push(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log(status + headers + config);
+      });
+  }
 
   // Getting repositories
   $http.get("/repositories")

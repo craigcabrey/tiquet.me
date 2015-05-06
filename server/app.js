@@ -14,6 +14,7 @@ var repositories = require('./routes/repositories');
 
 var test_users = require('./routes/test-users');
 var test_repositories = require('./routes/test-repositories');
+var test_newticket = require('./routes/test-newticket');
 
 var connection = mysql.createConnection({
   host: process.env.MYSQL_DB_HOST || 'localhost',
@@ -83,6 +84,7 @@ if (app.get('env') === 'development') {
 } else if (app.get('env') === 'frontend-dev') {
   app.use('/users', test_users);
   app.use('/repositories', test_repositories);
+  app.use('/newticket', test_newticket);
 
   app.use(function(req, res, next) {
     var err = new Error('Not Found');

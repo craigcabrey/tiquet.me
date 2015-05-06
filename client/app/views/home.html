@@ -81,12 +81,15 @@
 
                 <div class="input-group">
                   <span class="input-group-addon" id="basic-addon1">Title</span>
-                  <input type="text" class="form-control" placeholder="Fix this" aria-describedby="basic-addon1">
+                  <input type="text" class="form-control"
+                         placeholder="Fix this" ng-model="newTicketTitle"
+                         aria-describedby="basic-addon1">
                 </div>
                 <br>
                 <div class="input-group">
                   <span class="input-group-addon">Description</span>
-                  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                  <input type="text" class="form-control"
+                         ng-model="newTicketDescription">
                 </div>
                 <br>
                 <div class="btn-group" data-toggle="buttons">
@@ -115,7 +118,9 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-primary"
+                        data-dismiss="modal" ng-click="createTicket()">Save
+                  changes</button>
               </div>
             </div>
           </div>
