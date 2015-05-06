@@ -45,7 +45,8 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body ticket-well-panel-scroll">
-                            <div class="col-lg-3 col-md-6" ng-repeat="ticket in project.tickets">
+                            <div class="col-lg-2 col-md-6"
+                                 ng-repeat="ticket in project.tickets">
 
                                 <div class="panel panel-green ticket-shell" data-toggle="modal" data-target="#ticketDetail" ng-class="{'ticket-closed':ticket.state === 'closed'}">
                                     <div class="panel-heading" ng-class="{'ticket-closed':ticket.state === 'closed'}">
