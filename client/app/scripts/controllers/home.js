@@ -61,8 +61,11 @@ angular.module('tiquetmeApp')
       body: $scope.newTicketDescription,
       assignee: {
         email: $scope.newTicketAssignee
-      }
+      },
+      labels: $scope.newTicketLabel
     }
+
+    console.log(ticketPayload);
     $http.post('/newticket', ticketPayload).
       success(function(data) {
         $scope.repositories[0].tickets.push(data);
