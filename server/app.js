@@ -60,7 +60,7 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(id, done) {
   connection.query("SELECT * FROM user WHERE id = ?", [id], function(err, results) {
     if (!err && results.length === 1) {
-      var profile = results[0].profile;
+      var profile = JSON.parse(results[0].profile);
       profile.token = results[0].githubToken;
       return done(null, profile);
     } else {
@@ -70,21 +70,24 @@ passport.deserializeUser(function(id, done) {
 });
 
 // If development create local user to skip github auth
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV !== "production") {
   passport.use(new LocalStrategy(
     function(username, token, done) {
-      connection.query("SELECT * FROM user WHERE profile like \"%?%\"", [username], function(err, results) {
-        if (results.length === 0) {
-          // Create test user
-          github.user.getFrom({user: username}, function(err, res) {
-            var profile = res;
-            delete profile.meta;
-            connection.query("INSERT INTO user (id, profile, githubToken) VALUES (?, ?, ?)", [profile.id, JSON.stringify(profile), token], function(err, results) {
+      github.user.getFrom({user: username}, function(err, res) {
+        var profile = res;
+        delete profile.meta;
+        connection.query("SELECT * FROM user WHERE id = ?", [profile.id], function (err, results) {
+          if (results.length === 0) {
+            // Create test user
+            connection.query("INSERT INTO user (id, profile, githubToken) VALUES (?, ?, ?)", [profile.id, JSON.stringify(profile), token], function (err, results) {
               profile.token = token;
               return done(null, profile)
             })
-          });
-        }
+          } else {
+            profile.token = token;
+            return done(null, profile);
+          }
+        });
       });
     }
   ));
