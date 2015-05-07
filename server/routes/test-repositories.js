@@ -97,7 +97,7 @@ router.get('/', function(req, res, next) {
         {
           id: 3,
           state: "open",
-          title: "Implement backend",
+          title: "Implement db",
           assignee: {
             id: 1,
             name: "John Stamos",
