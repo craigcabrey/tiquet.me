@@ -43,8 +43,7 @@
                     </form>
                     <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="repositoryCount > 0" ng-repeat="project in repositories">
                         <div class="row panel-heading scroll-width">
-                            <div class="col-md-7">{{project.id}}:
-                              {{project.name}}</div>
+                            <div class="col-md-7"><strong>{{project.name}}</strong></div>
                             <div class="col-md-1 text-right"><span data-toggle="modal" data-target="#ticketCreateModal" class="ticket-new-button fa fa-plus"></span></div>
                         </div>
                         <!-- /.panel-heading -->
