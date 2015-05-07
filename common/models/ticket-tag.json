@@ -1,0 +1,17 @@
+{
+  "name": "tickettag",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "ticket": {
+      "type": "belongsTo",
+      "model": "ticket"
+    },
+    "tag": {
+      "type": "belongsTo",
+      "model": "tag"
+    }
+  }
+}

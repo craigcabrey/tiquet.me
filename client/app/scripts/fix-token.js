@@ -1,3 +1,5 @@
+'use strict';
+
 function cookiesToObject() {
   return document.cookie.split(';').map(
     function(keyValueString) {
@@ -16,12 +18,12 @@ var cookieObject = cookiesToObject();
 
 if (typeof cookieObject === 'object') {
   if (cookieObject.hasOwnProperty('access_token')) {
-    var accessToken = cookieObject['access_token'];
+    var accessToken = cookieObject.access_token;
     localStorage.setItem('$LoopBack$accessTokenId', accessToken);
   }
 
   if (cookieObject.hasOwnProperty('userId')) {
-    var userId = cookieObject['userId'];
+    var userId = cookieObject.userId;
     localStorage.setItem('$LoopBack$currentUserId', userId);
   }
 }

@@ -1,0 +1,4 @@
+.ticket-shell:hover {
+  box-shadow: 1px 1px 1px 1px #BBB;
+  cursor: pointer;
+}
