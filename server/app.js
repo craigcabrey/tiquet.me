@@ -8,6 +8,8 @@ var passport = require('passport');
 var mysql = require('mysql');
 var session = require('express-session');
 var GitHubStrategy = require('passport-github').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
+var GitHubApi = require("github");
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -16,9 +18,9 @@ var repositories = require('./routes/repositories');
 var test_users = require('./routes/test-users');
 var test_repositories = require('./routes/test-repositories');
 
-var config = require('config');
-if (process.env.NODE_ENV !== null) {
-  config = require('config.' + process.env.NODE_ENV);
+var config = require('./config');
+if (process.env.NODE_ENV !== undefined) {
+  config = require('./config.' + process.env.NODE_ENV);
 }
 
 var connection = mysql.createConnection({
@@ -35,6 +37,10 @@ connection.connect(function(err) {
   }
 
   console.log('Connected to database.');
+});
+
+var github = new GitHubApi({
+  version: "3.0.0"
 });
 
 var app = express();
@@ -63,44 +69,75 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-passport.use(new GitHubStrategy({
-    clientID: config.github.client_id,
-    clientSecret: config.github.client_secret,
-    callbackURL: "http://" + config.host + ":" + config.port + "/auth/github/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    connection.query("SELECT * FROM user WHERE id = ?", [profile._json.id], function(err, results) {
-      if (err === null) {
+// If development create local user to skip github auth
+if (process.env.NODE_ENV === "development") {
+  passport.use(new LocalStrategy(
+    function(username, token, done) {
+      connection.query("SELECT * FROM user WHERE profile like \"%?%\"", [username], function(err, results) {
         if (results.length === 0) {
-          // Create new user
-          connection.query("INSERT INTO user (id, profile, githubToken) VALUES (?, ?, ?)", [profile.id, JSON.stringify(profile._json), accessToken], function(err, results) {
-            profile.token = accessToken;
-            return done(err, profile);
+          // Create test user
+          github.user.getFrom({user: username}, function(err, res) {
+            var profile = res;
+            delete profile.meta;
+            connection.query("INSERT INTO user (id, profile, githubToken) VALUES (?, ?, ?)", [profile.id, JSON.stringify(profile), token], function(err, results) {
+              profile.token = token;
+              return done(null, profile)
+            })
           });
-        } else {
-          // User exists, return that
-          var existingProfile = results[0].profile;
-          existingProfile.token = results[0].githubToken;
-          return done(null, profile);
         }
-      } else {
-        return done(err, null);
-      }
+      });
+    }
+  ));
+  app.get('/auth/github', function(req, res, next) {
+    req.body.username = config.local_github.username;
+    req.body.password = config.local_github.token;
+    passport.authenticate('local', function(err, user, info) {
+      req.login(user, function(err) {
+        res.redirect("/");
+      });
+    })(req, res, next);
+  });
+} else {
+  passport.use(new GitHubStrategy({
+      clientID: config.github_auth.client_id,
+      clientSecret: config.github_auth.client_secret,
+      callbackURL: "http://" + config.host + ":" + config.port + "/auth/github/callback"
+    },
+    function(accessToken, refreshToken, profile, done) {
+      connection.query("SELECT * FROM user WHERE id = ?", [profile._json.id], function(err, results) {
+        if (err === null) {
+          if (results.length === 0) {
+            // Create new user
+            connection.query("INSERT INTO user (id, profile, githubToken) VALUES (?, ?, ?)", [profile.id, JSON.stringify(profile._json), accessToken], function(err, results) {
+              profile.token = accessToken;
+              return done(err, profile);
+            });
+          } else {
+            // User exists, return that
+            var existingProfile = results[0].profile;
+            existingProfile.token = results[0].githubToken;
+            return done(null, profile);
+          }
+        } else {
+          return done(err, null);
+        }
+      });
+    }
+  ));
+  app.get('/auth/github', passport.authenticate('github'));
+  app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/');
     });
-  }
-));
+}
+
 
 app.use(function(req, res, next) {
   req.db = connection;
+  req.github = github;
   next();
 });
-
-app.get('/auth/github', passport.authenticate('github'));
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
 
 if (app.get('env') === 'development') {
   app.use('/', routes);

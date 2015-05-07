@@ -3,13 +3,11 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-  req.db.query(
-    'SELECT * FROM users WHERE id = ' + req.user.id,
-    function(err, result) {
-      res.json(result);
-    }
-  );
+  if (req.user) {
+    res.json(req.user);
+  } else {
+    next({status: 401})
+  }
 });
 
 module.exports = router;
