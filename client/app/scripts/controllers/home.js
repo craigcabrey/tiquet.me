@@ -37,6 +37,21 @@ angular.module('tiquetmeApp')
     //     }
     //   );
     // };
+
+  $scope.createRepo = function() {
+    var repoPayload =
+    {
+      id: 3,
+      name: $scope.newRepoName
+    }
+    $http.post('/newticket', repoPayload).
+      success(function(data) {
+        $scope.repositories.push(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log(status + headers + config);
+      });
+  }
   $scope.createTicket = function() {
     var ticketPayload =
     {
@@ -115,4 +130,9 @@ angular.module('tiquetmeApp').controller('ModalInstanceCtrl', function ($scope, 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+
+  $scope.closeTicket = function() {
+    $scope.ticketDetail.state = 'closed';
+    $modalInstance.dismiss('cancel');
+  }
 });
