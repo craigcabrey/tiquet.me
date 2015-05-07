@@ -6,75 +6,49 @@ router.get('/', function(req, res, next) {
   res.json([
     {
       id: 1,
-      name: "vegetable/potato",
-      contributors: [
-        {
-          id: 1,
-          name: "one potato",
-          email: "one@potato.com"
-        },
-        {
-          id: 2,
-          name: "two potato",
-          email: "two@potato.com"
-        }
-      ],
+      name: "bettywhite/my_website",
       tickets: [
         {
           id: 1,
           state: "open",
-          title: "first ticket",
+          title: "Add FAQ page",
           updated: new Date(),
           assignee: {
             id: 1,
-            name: "one potato",
-            email: "one@potato.com"
+            name: "John Stamos",
+            email: "jstamos@aol.com"
           },
-          reporter: {
-            id: 1,
-            name: "one potato",
-            email: "one@potato.com"
-          },
-          body: "shit's broken",
+          body: "I can answer your questions.",
           comments: [
             {
               author: {
                 id: 1,
-                name: "one potato",
-                email: "one@potato.com"
+                name: "John Stamos",
+                email: "jstamos@aol.com"
               },
               created: new Date(),
               updated: new Date(),
-              body: "shit sucks"
-            }
-          ],
-          tickets: [
+              body: "This is beyond my expertise."
+            },
             {
-              state: "open",
-              title: "first ticket",
-              assignee: {
-                id: 1,
-                name: "one potato",
-                email: "one@potato.com"
+              author: {
+                id: 2,
+                name: "Betty White",
+                email: "bwhite@aol.com"
               },
-              reporter: {
+              created: new Date(),
+              updated: new Date(),
+              body: "I believe in you, John."
+            },
+            {
+              author: {
                 id: 1,
-                name: "one potato",
-                email: "one@potato.com"
+                name: "John Stamos",
+                email: "jstamos@aol.com"
               },
-              body: "shit's broken",
-              tags: [
-                {
-                  id: 1,
-                  name: "bug",
-                  color: "#FFFFF"
-                },
-                {
-                  id: 2,
-                  name: "feature",
-                  color: "#123456"
-                }
-              ]
+              created: new Date(),
+              updated: new Date(),
+              body: "Thanks, Betty. I believe in me too."
             }
           ],
           tags: [
@@ -92,60 +66,25 @@ router.get('/', function(req, res, next) {
         },
         {
           id: 2,
-          state: "closed",
-          title: "first ticket",
+          state: "open",
+          title: "Add SSL",
           updated: new Date(),
           assignee: {
             id: 1,
-            name: "one potato",
-            email: "one@potato.com"
+            name: "John Stamos",
+            email: "jstamos@aol.com"
           },
-          reporter: {
-            id: 1,
-            name: "one potato",
-            email: "one@potato.com"
-          },
-          body: "shit's broken",
-          comments: [],
-          tickets: [
+          body: "We need some security.",
+          comments: [
             {
-              state: "open",
-              title: "first ticket",
-              assignee: {
+              author: {
                 id: 1,
-                name: "one potato",
-                email: "one@potato.com"
+                name: "John Stamos",
+                email: "jstamos@aol.com"
               },
-              reporter: {
-                id: 1,
-                name: "one potato",
-                email: "one@potato.com"
-              },
-              body: "shit's broken",
-              tags: [
-                {
-                  id: 1,
-                  name: "bug",
-                  color: "#FFFFF"
-                },
-                {
-                  id: 2,
-                  name: "feature",
-                  color: "#123456"
-                }
-              ]
-            }
-          ],
-          tags: [
-            {
-              id: 1,
-              name: "bug",
-              color: "#FFFFF"
-            },
-            {
-              id: 2,
-              name: "feature",
-              color: "#123456"
+              created: new Date(),
+              updated: new Date(),
+              body: "Nah, we good."
             }
           ]
         }
@@ -153,66 +92,30 @@ router.get('/', function(req, res, next) {
     },
     {
       id: 2,
-      name: "test/testy",
+      name: "bettywhite/my_todo_application",
       tickets: [
         {
           id: 3,
           state: "open",
-          title: "first ticket",
+          title: "Implement backend",
           assignee: {
             id: 1,
-            name: "one potato",
-            email: "one@potato.com"
+            name: "John Stamos",
+            email: "jstamos@aol.com"
           },
-          body: "shit's broken"
-        },
-        {
-          id: 4,
-          state: "closed",
-          title: "first ticket",
-          assignee: {
-            id: 1,
-            name: "one potato",
-            email: "one@potato.com"
-          },
-          reporter: {
-            id: 1,
-            name: "one potato",
-            email: "one@potato.com"
-          },
-          body: "shit's broken"
-        },
-        {
-          id: 5,
-          state: "closed",
-          title: "first ticket",
-          assignee: {
-            id: 1,
-            name: "one potato",
-            email: "one@potato.com"
-          },
-          reporter: {
-            id: 1,
-            name: "one potato",
-            email: "one@potato.com"
-          },
-          body: "shit's broken"
-        },
-        {
-          id: 6,
-          state: "closed",
-          title: "first ticket",
-          assignee: {
-            id: 1,
-            name: "one potato",
-            email: "one@potato.com"
-          },
-          reporter: {
-            id: 1,
-            name: "one potato",
-            email: "one@potato.com"
-          },
-          body: "shit's broken"
+          body: "For putting data on the tables.",
+          comments: [
+            {
+              author: {
+                id: 1,
+                name: "John Stamos",
+                email: "jstamos@aol.com"
+              },
+              created: new Date(),
+              updated: new Date(),
+              body: "I know how to build a table."
+            }
+          ]
         }
       ]
     }

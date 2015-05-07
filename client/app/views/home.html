@@ -63,9 +63,10 @@
                                     </div>
 
                                     <div class="panel-footer">
-                                        <p>{{ticket.state}}</p>
-                                        <p>{{ticket.assignee.email}}</p>
-                                        <p>{{ticket.body}}</p>
+                                        <p><strong>{{ticket.state}}</strong></p>
+                                        <p>Assigned: {{ticket.assignee
+                                          .email}}</p>
+                                        <p>"{{ticket.body}}"</p>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
