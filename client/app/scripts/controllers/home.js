@@ -130,4 +130,9 @@ angular.module('tiquetmeApp').controller('ModalInstanceCtrl', function ($scope, 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+
+  $scope.closeTicket = function() {
+    $scope.ticketDetail.state = 'closed';
+    $modalInstance.dismiss('cancel');
+  }
 });
