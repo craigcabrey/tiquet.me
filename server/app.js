@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var mysql = require('mysql');
+var session = require('express-session');
 var GitHubStrategy = require('passport-github').Strategy;
 
 var routes = require('./routes/index');
@@ -18,9 +19,9 @@ var test_newticket = require('./routes/test-newticket');
 
 var connection = mysql.createConnection({
   host: process.env.MYSQL_DB_HOST || 'localhost',
-  user: process.env.MYSQL_DB_USERNAME || 'root',
+  user: process.env.MYSQL_DB_USERNAME || 'tiquet',
   password: process.env.MYSQL_DB_PASSWORD || '',
-  database: process.env.MYSQL_DATABASE || 'tiquetme'
+  database: process.env.MYSQL_DATABASE || 'tiquet'
 });
 
 connection.connect(function(err) {
@@ -34,14 +35,53 @@ connection.connect(function(err) {
 
 var app = express();
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(session({ secret: 'my_precious' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(path.join(__dirname, '../client/app')));
+app.use('/bower_components', express.static(path.join(__dirname, '../client/bower_components')));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  connection.query("SELECT * FROM user WHERE id = ?", [id], function(err, results) {
+    if (!err && results.length === 1) {
+      var profile = results[0].profile;
+      profile.token = results[0].githubToken;
+      return done(null, profile);
+    } else {
+      return done(err, null);
+    }
+  });
+});
+
 passport.use(new GitHubStrategy({
     clientID: 'GITHUB_CLIENT_ID',
     clientSecret: 'GITHUB_CLIENT_SECRET',
     callbackURL: "http://127.0.0.1:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
+    connection.query("SELECT * FROM user WHERE id = ?", [profile._json.id], function(err, results) {
+      if (err === null) {
+        if (results.length === 0) {
+          // Create new user
+          connection.query("INSERT INTO user (id, profile, githubToken) VALUES (?, ?, ?)", [profile.id, JSON.stringify(profile._json), accessToken], function(err, results) {
+            profile.token = accessToken;
+            return done(err, profile);
+          });
+        } else {
+          // User exists, return that
+          var existingProfile = results[0].profile;
+          existingProfile.token = results[0].githubToken;
+          return done(null, profile);
+        }
+      } else {
+        return done(err, null);
+      }
     });
   }
 ));
@@ -56,13 +96,7 @@ app.get('/auth/github/callback', passport.authenticate('github', { failureRedire
   function(req, res) {
     // Successful authentication, redirect home.
     res.redirect('/');
-});
-
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../client/app')));
-app.use('/bower_components', express.static(path.join(__dirname, '../client/bower_components')));
+  });
 
 if (app.get('env') === 'development') {
   app.use('/users', users);
@@ -119,3 +153,4 @@ function ensureAuthenticated(req, res, next) {
 }
 
 module.exports = app;
+
