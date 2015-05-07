@@ -1,0 +1,41 @@
+{
+  "name": "comment",
+  "plural": "comments",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "mysql": {
+      "table": "comments"
+    }
+  },
+  "properties": {
+    "description": {
+      "type": "string",
+      "required": true,
+      "dataType": "text"
+    },
+    "created": {
+      "type": "date",
+      "required": true
+    },
+    "updated": {
+      "type": "date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "author": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": ""
+    },
+    "ticket": {
+      "type": "belongsTo",
+      "model": "ticket",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": []
+}

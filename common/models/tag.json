@@ -1,0 +1,36 @@
+{
+  "name": "tag",
+  "plural": "tags",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "mysql": {
+      "table": "tags"
+    }
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "repository": {
+      "type": "belongsTo",
+      "model": "repository",
+      "foreignKey": ""
+    },
+    "tickets": {
+      "type": "hasMany",
+      "model": "ticket",
+      "through": "tickettag"
+    }
+  },
+  "acls": [],
+  "methods": []
+}

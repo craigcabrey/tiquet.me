@@ -17,6 +17,7 @@ var repositories = require('./routes/repositories');
 
 var test_users = require('./routes/test-users');
 var test_repositories = require('./routes/test-repositories');
+var test_newticket = require('./routes/test-newticket');
 
 var config = require('./config');
 if (process.env.NODE_ENV !== undefined) {
@@ -140,7 +141,6 @@ app.use(function(req, res, next) {
 });
 
 if (app.get('env') === 'development') {
-  app.use('/', routes);
   app.use('/users', users);
   app.use('/repositories', repositories);
 
@@ -158,9 +158,9 @@ if (app.get('env') === 'development') {
     });
   });
 } else if (app.get('env') === 'frontend-dev') {
-  app.use('/', routes);
   app.use('/users', test_users);
   app.use('/repositories', test_repositories);
+  app.use('/newticket', test_newticket);
 
   app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -168,7 +168,6 @@ if (app.get('env') === 'development') {
     next(err);
   });
 } else {
-  app.use('/', routes);
   app.use('/users', users);
   app.use('/repositories', repositories);
 
@@ -185,6 +184,14 @@ if (app.get('env') === 'development') {
       error: {}
     });
   });
+}
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect('/login')
 }
 
 module.exports = app;

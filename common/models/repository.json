@@ -1,0 +1,53 @@
+{
+  "name": "repository",
+  "plural": "repositories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "mysql": {
+      "table": "repositories"
+    }
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "dataType": "text",
+      "required": false
+    },
+    "created": {
+      "type": "date",
+      "required": false
+    },
+    "updated": {
+      "type": "date",
+      "required": false
+    },
+    "ownerName": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "tickets": {
+      "type": "hasMany",
+      "model": "ticket",
+      "foreignKey": ""
+    },
+    "tags": {
+      "type": "hasMany",
+      "model": "tag",
+      "foreignKey": ""
+    },
+    "owner": {
+      "type": "belongsTo",
+      "model": "User"
+    }
+  },
+  "acls": [],
+  "methods": []
+}
