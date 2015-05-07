@@ -44,7 +44,7 @@ angular.module('tiquetmeApp')
       id: 3,
       name: $scope.newRepoName
     }
-    $http.post('/newticket', repoPayload).
+    $http.post('/repositories', repoPayload).
       success(function(data) {
         $scope.repositories.push(data);
       }).
