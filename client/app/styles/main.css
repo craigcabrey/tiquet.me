@@ -34,6 +34,11 @@ body {
   border-color: rgb(151, 143, 147) !important;
 }
 
+.ticket-bug {
+  background-color: rgb(151, 4, 25) !important;
+  border-color: rgb(151, 4, 25) !important;
+}
+
 .ticket-closed:hover {
   cursor: auto;
   box-shadow: none !important;

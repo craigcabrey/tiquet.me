@@ -55,8 +55,8 @@ angular.module('tiquetmeApp')
   $scope.createTicket = function() {
     var ticketPayload =
     {
-      id: $scope.repositories[0].tickets.length - 1,
-      state: "open",
+      id: 3,
+      state: "bug",
       title: $scope.newTicketTitle,
       body: $scope.newTicketDescription,
       assignee: {

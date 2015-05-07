@@ -53,9 +53,12 @@
 
                                 <div class="panel panel-green ticket-shell" data-toggle="modal"
                                      data-target="#ticketDetail"
-                                     ng-class="{'ticket-closed':ticket.state === 'closed'}">
-                                    <div class="panel-heading" ng-class="{'ticket-closed':ticket.state === 'closed'}">
-                                        <div class="row" ng-class="{'ticket-closed':ticket.state === 'closed'}">
+                                      ng-class="{'ticket-bug':ticket.state === 'bug',
+                                                  'ticket-closed':ticket.state === 'closed'}">
+                                    <div class="panel-heading" ng-class="{'ticket-bug':ticket.state === 'bug',
+                                                  'ticket-closed':ticket.state === 'closed'}">
+                                        <div class="row" ng-class="{'ticket-bug':ticket.state === 'bug',
+                                                  'ticket-closed':ticket.state === 'closed'}">
                                             <div class="col-xs-10 text-left">
                                                 <h4>{{ticket.id}}: {{ticket.title}}</h4>
                                             </div>
