@@ -2,7 +2,7 @@
 <script type="text/ng-template" id="ticketDetail.html">
 
 <div class="modal-header">
-<h3 class="modal-title">{{ticketDetail.id}}: {{ticketDetail.title}}</h3>
+<h3 class="modal-title">#{{ticketDetail.id}}: {{ticketDetail.title}}</h3>
 </div>
 <div class="modal-body">
 
@@ -32,6 +32,8 @@
     </div>
     </div>
     <div class="modal-footer">
+    <button class="text-left btn btn-danger" ng-click="closeTicket()">Close
+      ticket.</button>
     <button class="btn btn-primary" ng-click="ok()">OK</button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>

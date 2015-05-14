@@ -8,8 +8,11 @@
                 </button>
                 <a class="navbar-brand" href="index.html">tiquet.me</a>
             </div>
-            <!-- /.navbar-header -->
-
+          <ul class="nav navbar-nav">
+            <li><a  class="fa fa-plus repo-create"
+                   data-toggle="modal" data-target="#repoCreateModal"> Add
+            Repo</a></li>
+          </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
@@ -40,7 +43,7 @@
                     </form>
                     <div class="chat-panel panel panel-default ticket-well-container-scroll" ng-show="repositoryCount > 0" ng-repeat="project in repositories">
                         <div class="row panel-heading scroll-width">
-                            <div class="col-md-7">{{project.id}}: {{project.name}}</div>
+                            <div class="col-md-7"><strong>{{project.name}}</strong></div>
                             <div class="col-md-1 text-right"><span data-toggle="modal" data-target="#ticketCreateModal" class="ticket-new-button fa fa-plus"></span></div>
                         </div>
                         <!-- /.panel-heading -->
@@ -51,19 +54,24 @@
 
                                 <div class="panel panel-green ticket-shell" data-toggle="modal"
                                      data-target="#ticketDetail"
-                                     ng-class="{'ticket-closed':ticket.state === 'closed'}">
-                                    <div class="panel-heading" ng-class="{'ticket-closed':ticket.state === 'closed'}">
-                                        <div class="row" ng-class="{'ticket-closed':ticket.state === 'closed'}">
+                                      ng-class="{'ticket-bug':ticket.state === 'bug',
+                                                  'ticket-closed':ticket.state === 'closed'}">
+                                    <div class="panel-heading" ng-class="{'ticket-bug':ticket.state === 'bug',
+                                                  'ticket-closed':ticket.state === 'closed'}">
+                                        <div class="row" ng-class="{'ticket-bug':ticket.state === 'bug',
+                                                  'ticket-closed':ticket.state === 'closed'}">
                                             <div class="col-xs-10 text-left">
-                                                <h4>{{ticket.id}}: {{ticket.title}}</h4>
+                                                <h4>#{{ticket.id}}:
+                                                  {{ticket.title}}</h4>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="panel-footer">
-                                        <p>{{ticket.state}}</p>
-                                        <p>{{ticket.assignee.email}}</p>
-                                        <p>{{ticket.body}}</p>
+                                        <p><strong>{{ticket.state}}</strong></p>
+                                        <p>Assigned: {{ticket.assignee
+                                          .email}}</p>
+                                        <p>"{{ticket.body}}"</p>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
@@ -86,44 +94,49 @@
                 <div class="input-group">
                   <span class="input-group-addon" id="basic-addon1">Title</span>
                   <input type="text" class="form-control"
-                         placeholder="Fix this" ng-model="newTicketTitle"
+                         placeholder="Fix header." ng-model="newTicketTitle"
                          aria-describedby="basic-addon1">
                 </div>
                 <br>
                 <div class="input-group">
                   <span class="input-group-addon">Description</span>
                   <input type="text"
-                         placeholder="Wow. This is incredibly broken."
+                         placeholder="It's broken."
                          class="form-control"
                          ng-model="newTicketDescription">
                 </div>
                 <br>
                 <div class="input-group">
                   <span class="input-group-addon">Assignee</span>
-                  <input placeholder="dankrutz@aol.com" type="text"
+                  <input placeholder="jstamos@aol.com" type="text"
                   class="form-control"
                          ng-model="newTicketAssignee">
                 </div>
                 <br>
                 <div class="btn-group" data-toggle="buttons">
                   <label class="btn btn-success active">
-                    <input type="checkbox" name="options" id="option1" autocomplete="off" checked>
+                    <input type="radio" name="options" autocomplete="off"
+                           ng-model="newTicketLabel.option1" checked>
                     <span class="fa fa-tag"> Feature</span>
                   </label>
                   <label class="btn btn-danger">
-                    <input type="checkbox" name="options" id="option2" autocomplete="off">
+                    <input type="radio" name="options" autocomplete="off"
+                           ng-model="newTicketLabel.option2">
                     <span class="fa fa-tag"> Bug</span>
                   </label>
                   <label class="btn btn-primary">
-                    <input type="checkbox" name="options" id="option3" autocomplete="off">
-                    <span class="fa fa-tag"> Backend</span>
+                    <input type="radio" name="options" autocomplete="off"
+                           ng-model="newTicketLabel.option3">
+                    <span class="fa fa-tag"> Maintenance</span>
                   </label>
                   <label class="btn btn-warning">
-                    <input type="checkbox" name="options" id="option4" autocomplete="off">
-                    <span class="fa fa-tag"> Frontend</span>
+                    <input type="radio" name="options" autocomplete="off"
+                           ng-model="newTicketLabel.option4">
+                    <span class="fa fa-tag"> Wontfix</span>
                   </label>
                   <label class="btn btn-default">
-                    <input type="checkbox" name="options" id="option5" autocomplete="off">
+                    <input type="radio" name="options" autocomplete="off"
+                           ng-model="newTicketLabel.option5">
                     <span class="fa fa-tag"> Potato</span>
                   </label>
                 </div>
@@ -134,6 +147,38 @@
                 <button type="button" class="btn btn-primary"
                         data-dismiss="modal" ng-click="createTicket()">Save
                   changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="modal fade" id="repoCreateModal" tabindex="-1" role="dialog"
+             aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create a repo.</h4>
+              </div>
+              <div class="modal-body">
+
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">Repo
+                    name</span>
+                  <input type="text" class="form-control"
+                         placeholder="bettywhite/new_repo"
+                         ng-model="newRepoName"
+                         aria-describedby="basic-addon1">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary"
+                        data-dismiss="modal" ng-click="createRepo()">Create!
+                </button>
               </div>
             </div>
           </div>

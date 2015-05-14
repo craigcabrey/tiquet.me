@@ -37,17 +37,35 @@ angular.module('tiquetmeApp')
     //     }
     //   );
     // };
+
+  $scope.createRepo = function() {
+    var repoPayload =
+    {
+      id: 3,
+      name: $scope.newRepoName
+    }
+    $http.post('/repositories', repoPayload).
+      success(function(data) {
+        $scope.repositories.push(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log(status + headers + config);
+      });
+  }
   $scope.createTicket = function() {
     var ticketPayload =
     {
-      id: $scope.repositories[0].tickets.length - 1,
-      state: "open",
+      id: 3,
+      state: "bug",
       title: $scope.newTicketTitle,
       body: $scope.newTicketDescription,
       assignee: {
         email: $scope.newTicketAssignee
-      }
+      },
+      labels: $scope.newTicketLabel
     }
+
+    console.log(ticketPayload);
     $http.post('/newticket', ticketPayload).
       success(function(data) {
         $scope.repositories[0].tickets.push(data);
@@ -115,4 +133,9 @@ angular.module('tiquetmeApp').controller('ModalInstanceCtrl', function ($scope, 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+
+  $scope.closeTicket = function() {
+    $scope.ticketDetail.state = 'closed';
+    $modalInstance.dismiss('cancel');
+  }
 });

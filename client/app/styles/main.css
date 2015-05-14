@@ -30,8 +30,18 @@ body {
 }
 
 .ticket-closed {
-  background-color: rgb(182, 5, 5) !important;
-  border-color: rgb(182, 5, 5) !important;
+  background-color: rgb(151, 143, 147) !important;
+  border-color: rgb(151, 143, 147) !important;
+}
+
+.ticket-bug {
+  background-color: rgb(151, 4, 25) !important;
+  border-color: rgb(151, 4, 25) !important;
+}
+
+.ticket-closed:hover {
+  cursor: auto;
+  box-shadow: none !important;
 }
 
 .ticket-new-button:hover {
